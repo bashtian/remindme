@@ -20,4 +20,5 @@ import com.example.android.wizardpager.wizard.model.Page;
 
 public interface PageFragmentCallbacks {
     Page onGetPage(String key);
+    void onSingleOptionSelected();
 }

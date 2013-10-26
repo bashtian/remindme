@@ -18,6 +18,7 @@ package com.example.android.wizardpager;
 
 import com.bashtian.remindme.AlarmReceiver;
 import com.bashtian.remindme.R;
+import com.bashtian.remindme.util.Static;
 import com.example.android.wizardpager.wizard.model.AbstractWizardModel;
 import com.example.android.wizardpager.wizard.model.ModelCallbacks;
 import com.example.android.wizardpager.wizard.model.Page;
@@ -125,7 +126,9 @@ public class MainActivity extends FragmentActivity implements
                         }
                     };
                     dg.show(getSupportFragmentManager(), "place_order_dialog");*/
-                    setNotification();
+                    String s = setNotification();
+                    Static.tasks.add(s);
+                    finish();
                 } else {
                     if (mEditingAfterReview) {
                         mPager.setCurrentItem(mPagerAdapter.getCount() - 1);
@@ -147,7 +150,7 @@ public class MainActivity extends FragmentActivity implements
         updateBottomBar();
     }
 
-    public void setNotification() {
+    public String setNotification() {
         ArrayList<ReviewItem> reviewItems = new ArrayList<ReviewItem>();
         for (Page page : mWizardModel.getCurrentPageSequence()) {
             if (!page.getKey().contains("When")) {
@@ -177,7 +180,7 @@ public class MainActivity extends FragmentActivity implements
          * alarm is received */
         AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
         am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingAlarm);
-
+        return buf.toString();
     }
 
     @Override
@@ -252,6 +255,11 @@ public class MainActivity extends FragmentActivity implements
     @Override
     public Page onGetPage(String key) {
         return mWizardModel.findByKey(key);
+    }
+
+    @Override
+    public void onSingleOptionSelected() {
+        mPager.setCurrentItem(mPager.getCurrentItem() + 1);
     }
 
     private boolean recalculateCutOffPage() {

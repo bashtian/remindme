@@ -36,8 +36,8 @@ public class TaskWizardModel extends AbstractWizardModel {
         return new PageList(
                 new BranchPage(this, "Task Type")
                         .addBranch("Call", new SingleFixedChoicePage(this, "Name")
-                            .setChoices("Mom", "Dad", "Brother", "Sister")
-                            .setRequired(true))
+                                .setChoices("Mom", "Dad", "Brother", "Sister")
+                                .setRequired(true))
                         .addBranch("Mail", new ContactChoicePage(this, "Contacts"))
                         .addBranch("Clean",
                                 new MultipleFixedChoicePage(this, "Room")
@@ -64,19 +64,15 @@ public class TaskWizardModel extends AbstractWizardModel {
                                         .addBranch("No")
                                         .setValue("No"))*/
 
-                        .addBranch("Buy",
-                                new SingleFixedChoicePage(this, "Salad type")
-                                        .setChoices("Greek", "Caesar")
+                        .addBranch("Do",
+                                new SingleFixedChoicePage(this, "Activity")
+                                        .setChoices("Sport", "Relax")
                                         .setRequired(true),
-
-                                new SingleFixedChoicePage(this, "Dressing")
-                                        .setChoices("No dressing", "Balsamic", "Oil & vinegar",
-                                                "Thousand Island", "Italian")
-                                        .setValue("No dressing")
+                                new SingleFixedChoicePage(this, "Weather").setChoices("Clear", "Cloudy", "Rain")
                         )
 
                         .setRequired(true),
-                new SingleFixedChoicePage(this, "Weather").setChoices("Clear", "Cloudy", "Rain"),
+
                 new SingleFixedChoicePage(this, "When?").setChoices("1 Day", "2 Days", "3 Days", "4 Days")
 
 /*

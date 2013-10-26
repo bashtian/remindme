@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
+import com.bashtian.remindme.util.JsonParser;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,6 +55,18 @@ public class AlarmReceiver extends BroadcastReceiver {
 // mId allows you to update the notification later on.
         mNotificationManager.notify(0, mBuilder.build());
     }
+
+    public String getJsonWeb(Context context) {
+        JSONObject jsonFromUrl = new JsonParser().getJSONFromUrl("http://api.wunderground.com/api/8be4d09c7967418b/conditions/q/Germany/Berlin.json");
+        String condition = null;
+        try {
+            condition = jsonFromUrl.getJSONObject("current_observation").getString("icon");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return condition;
+    }
+
 
     public String getJson(Context context) {
         InputStream is = context.getResources().openRawResource(R.raw.berlin);

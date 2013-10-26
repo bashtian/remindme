@@ -82,8 +82,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Locale;
 
-public class ContactChoiceFragment extends ListFragment implements
-        AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor> {
+public class ContactChoiceFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String ARG_KEY = "key";
 
     private PageFragmentCallbacks mCallbacks;
@@ -220,9 +219,33 @@ public class ContactChoiceFragment extends ListFragment implements
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
+        // Gets the Cursor object currently bound to the ListView
+        final Cursor cursor = mAdapter.getCursor();
+
+        // Moves to the Cursor row corresponding to the ListView item that was clicked
+        cursor.moveToPosition(position);
+
+        // Creates a contact lookup Uri from contact ID and lookup_key
+/*
+        final Uri uri = Contacts.getLookupUri(
+                cursor.getLong(ContactsQuery.ID),
+                cursor.getString(ContactsQuery.LOOKUP_KEY));
+*/
+
+        // Notifies the parent activity that the user selected a contact. In a two-pane layout, the
+        // parent activity loads a ContactDetailFragment that displays the details for the selected
+        // contact. In a single-pane layout, the parent activity starts a new activity that
+        // displays contact details in its own Fragment.
+        //mOnContactSelectedListener.onContactSelected(uri);
+
+
+        //getListView().setItemChecked(position, true);
+
+        String string = cursor.getString(ContactsQuery.DISPLAY_NAME);
         mPage.getData().putString(Page.SIMPLE_DATA_KEY,
-                getListAdapter().getItem(position).toString());
+                string);
         mPage.notifyDataChanged();
+        mCallbacks.onSingleOptionSelected();
     }
 
 
@@ -278,8 +301,26 @@ public class ContactChoiceFragment extends ListFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the list fragment llayout
-        return inflater.inflate(R.layout.fragment_page, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_page, container, false);
+        ((TextView) rootView.findViewById(android.R.id.title)).setText(mPage.getTitle());
+
+
+
+        // Pre-select currently selected item.
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                String selection = mPage.getData().getString(Page.SIMPLE_DATA_KEY);
+                for (int i = 0; i < mChoices.size(); i++) {
+                    if (mChoices.get(i).equals(selection)) {
+                        getListView().setItemChecked(i, true);
+                        break;
+                    }
+                }
+            }
+        });
+
+        return rootView;
     }
 
     @Override
@@ -289,7 +330,7 @@ public class ContactChoiceFragment extends ListFragment implements
         // Set up ListView, assign adapter and set some listeners. The adapter was previously
         // created in onCreate().
         setListAdapter(mAdapter);
-        getListView().setOnItemClickListener(this);
+        //getListView().setOnItemClickListener(this);
         getListView().setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int scrollState) {
@@ -306,12 +347,8 @@ public class ContactChoiceFragment extends ListFragment implements
             }
         });
 
-        if (mIsTwoPaneLayout) {
-            // In a two-pane layout, set choice mode to single as there will be two panes
-            // when an item in the ListView is selected it should remain highlighted while
-            // the content shows in the second pane.
-            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        }
+
+        getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         // If there's a previously selected search item from a saved state then don't bother
         // initializing the loader as it will be restarted later when the query is populated into
@@ -331,6 +368,7 @@ public class ContactChoiceFragment extends ListFragment implements
         mImageLoader.setPauseWork(false);
     }
 
+/*
     @Override
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         // Gets the Cursor object currently bound to the ListView
@@ -348,14 +386,17 @@ public class ContactChoiceFragment extends ListFragment implements
         // parent activity loads a ContactDetailFragment that displays the details for the selected
         // contact. In a single-pane layout, the parent activity starts a new activity that
         // displays contact details in its own Fragment.
-        mOnContactSelectedListener.onContactSelected(uri);
+        //mOnContactSelectedListener.onContactSelected(uri);
 
-        // If two-pane layout sets the selected item to checked so it remains highlighted. In a
-        // single-pane layout a new activity is started so this is not needed.
-        if (mIsTwoPaneLayout) {
-            getListView().setItemChecked(position, true);
-        }
+
+        getListView().setItemChecked(position, true);
+
+        mPage.getData().putString(Page.SIMPLE_DATA_KEY,
+                cursor.getString(ContactsQuery.DISPLAY_NAME));
+        mPage.notifyDataChanged();
+        mCallbacks.onSingleOptionSelected();
     }
+*/
 
     /**
      * Called when ListView selection is cleared, for example
