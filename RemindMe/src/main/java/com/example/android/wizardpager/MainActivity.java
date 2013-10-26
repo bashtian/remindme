@@ -161,7 +161,7 @@ public class MainActivity extends FragmentActivity implements
         }
 
         Calendar cal = Calendar.getInstance(); //retrieves a calendar object w/ current time
-        cal.add(Calendar.SECOND, 10); //adds 1 minute to current time
+        cal.add(Calendar.SECOND, 3);
 
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
         alarmIntent.putExtra("title", buf.toString());

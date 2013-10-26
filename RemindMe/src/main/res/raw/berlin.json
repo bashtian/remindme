@@ -1,0 +1,93 @@
+
+{
+  "response": {
+  "version":"0.1",
+  "termsofService":"http://www.wunderground.com/weather/api/d/terms.html",
+  "features": {
+  "conditions": 1
+  }
+	}
+  ,	"current_observation": {
+		"image": {
+		"url":"http://icons-ak.wxug.com/graphics/wu2/logo_130x80.png",
+		"title":"Weather Underground",
+		"link":"http://www.wunderground.com"
+		},
+		"display_location": {
+		"full":"Berlin, Germany",
+		"city":"Berlin",
+		"state":"",
+		"state_name":"Germany",
+		"country":"DL",
+		"country_iso3166":"DE",
+		"zip":"00000",
+		"magic":"10",
+		"wmo":"10389",
+		"latitude":"52.51666641",
+		"longitude":"13.39999962",
+		"elevation":"34.00000000"
+		},
+		"observation_location": {
+		"full":"Prenzlauer Berg, Berlin, Berlin",
+		"city":"Prenzlauer Berg, Berlin",
+		"state":"Berlin",
+		"country":"Germany",
+		"country_iso3166":"DE",
+		"latitude":"52.531624",
+		"longitude":"13.425669",
+		"elevation":"260 ft"
+		},
+		"estimated": {
+		},
+		"station_id":"IBERLIN15",
+		"observation_time":"Last Updated on October 26, 8:13 PM CEST",
+		"observation_time_rfc822":"Sat, 26 Oct 2013 20:13:06 +0200",
+		"observation_epoch":"1382811186",
+		"local_time_rfc822":"Sat, 26 Oct 2013 20:28:19 +0200",
+		"local_epoch":"1382812099",
+		"local_tz_short":"CEST",
+		"local_tz_long":"Europe/Berlin",
+		"local_tz_offset":"+0200",
+		"weather":"Clear",
+		"temperature_string":"62.1 F (16.7 C)",
+		"temp_f":62.1,
+		"temp_c":16.7,
+		"relative_humidity":"79%",
+		"wind_string":"From the SSW at 11.3 MPH Gusting to 15.0 MPH",
+		"wind_dir":"SSW",
+		"wind_degrees":210,
+		"wind_mph":11.3,
+		"wind_gust_mph":"15.0",
+		"wind_kph":18.2,
+		"wind_gust_kph":"24.1",
+		"pressure_mb":"1012",
+		"pressure_in":"29.89",
+		"pressure_trend":"0",
+		"dewpoint_string":"55 F (13 C)",
+		"dewpoint_f":55,
+		"dewpoint_c":13,
+		"heat_index_string":"NA",
+		"heat_index_f":"NA",
+		"heat_index_c":"NA",
+		"windchill_string":"NA",
+		"windchill_f":"NA",
+		"windchill_c":"NA",
+		"feelslike_string":"62.1 F (16.7 C)",
+		"feelslike_f":"62.1",
+		"feelslike_c":"16.7",
+		"visibility_mi":"N/A",
+		"visibility_km":"N/A",
+		"solarradiation":"0",
+		"UV":"-1","precip_1hr_string":"0.00 in ( 0 mm)",
+		"precip_1hr_in":"0.00",
+		"precip_1hr_metric":" 0",
+		"precip_today_string":"-999.00 in (-25375 mm)",
+		"precip_today_in":"-999.00",
+		"precip_today_metric":"-25375",
+		"icon":"clear",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/nt_clear.gif",
+		"forecast_url":"http://www.wunderground.com/global/stations/10389.html",
+		"history_url":"http://www.wunderground.com/weatherstation/WXDailyHistory.asp?ID=IBERLIN15",
+		"ob_url":"http://www.wunderground.com/cgi-bin/findweather/getForecast?query=52.531624,13.425669"
+	}
+}

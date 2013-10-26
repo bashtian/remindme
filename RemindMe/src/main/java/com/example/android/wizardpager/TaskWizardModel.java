@@ -18,6 +18,7 @@ package com.example.android.wizardpager;
 
 import com.example.android.wizardpager.wizard.model.AbstractWizardModel;
 import com.example.android.wizardpager.wizard.model.BranchPage;
+import com.example.android.wizardpager.wizard.model.ContactChoicePage;
 import com.example.android.wizardpager.wizard.model.CustomerInfoPage;
 import com.example.android.wizardpager.wizard.model.MultipleFixedChoicePage;
 import com.example.android.wizardpager.wizard.model.PageList;
@@ -37,7 +38,7 @@ public class TaskWizardModel extends AbstractWizardModel {
                         .addBranch("Call", new SingleFixedChoicePage(this, "Name")
                             .setChoices("Mom", "Dad", "Brother", "Sister")
                             .setRequired(true))
-                        .addBranch("Mail")
+                        .addBranch("Mail", new ContactChoicePage(this, "Contacts"))
                         .addBranch("Clean",
                                 new MultipleFixedChoicePage(this, "Room")
                                         .setChoices("Living Room", "Bathroom", "Kitchen", "Garage")
@@ -75,7 +76,9 @@ public class TaskWizardModel extends AbstractWizardModel {
                         )
 
                         .setRequired(true),
+                new SingleFixedChoicePage(this, "Weather").setChoices("Clear", "Cloudy", "Rain"),
                 new SingleFixedChoicePage(this, "When?").setChoices("1 Day", "2 Days", "3 Days", "4 Days")
+
 /*
                 new CustomerInfoPage(this, "Your info")
                         .setRequired(true)*/

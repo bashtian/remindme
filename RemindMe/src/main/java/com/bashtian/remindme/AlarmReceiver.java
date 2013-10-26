@@ -8,8 +8,17 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
-import com.bashtian.remindme.MainActivity;
-import com.bashtian.remindme.R;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 
 /**
  * Created by sebastian on 26.10.13.
@@ -20,7 +29,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_stat_device_access_alarms)
                         .setContentTitle(intent.getStringExtra("title"))
-                        .setContentText("Hello World!");
+                        .setContentText("Weather: " + getJson(context));
 // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(context, MainActivity.class);
 
@@ -44,4 +53,38 @@ public class AlarmReceiver extends BroadcastReceiver {
 // mId allows you to update the notification later on.
         mNotificationManager.notify(0, mBuilder.build());
     }
+
+    public String getJson(Context context) {
+        InputStream is = context.getResources().openRawResource(R.raw.berlin);
+        Writer writer = new StringWriter();
+        char[] buffer = new char[1024];
+        try {
+            Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            int n;
+            while ((n = reader.read(buffer)) != -1) {
+                writer.write(buffer, 0, n);
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        String jsonString = writer.toString();
+        String condition = null;
+        try {
+            JSONObject jObj = new JSONObject(jsonString);
+            condition = jObj.getJSONObject("current_observation").getString("icon");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return condition;
+    }
+
 }
