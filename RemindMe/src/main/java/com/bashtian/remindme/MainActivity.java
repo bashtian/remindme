@@ -6,6 +6,7 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -98,6 +99,9 @@ public class MainActivity extends Activity
         switch (item.getItemId()) {
             case R.id.action_settings:
                 return true;
+            case R.id.action_example:
+                Intent i = new Intent(this, com.example.android.wizardpager.MainActivity.class);
+                startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }
